@@ -147,7 +147,7 @@ $stmt->close();
                 <div class="info-box-content">
                   <span class="info-box-text">Deposits</span>
                   <span class="info-box-number">
-                    <?php echo $iB_deposits; ?> vnd
+                    <?php echo number_format($iB_deposits ?? 0); ?> vnd
                   </span>
                 </div>
               </div>
@@ -161,7 +161,7 @@ $stmt->close();
 
                 <div class="info-box-content">
                   <span class="info-box-text">Withdrawals</span>
-                  <span class="info-box-number"> <?php echo $iB_withdrawal; ?> vnd</span>
+                  <span class="info-box-number"> <?php echo number_format($iB_withdrawal ?? 0); ?> vnd</span>
                 </div>
               </div>
             </div>
@@ -176,7 +176,7 @@ $stmt->close();
                 <span class="info-box-icon bg-success elevation-1"><i class="fas fa-random"></i></span>
                 <div class="info-box-content">
                   <span class="info-box-text">Transfers</span>
-                  <span class="info-box-number"> <?php echo $iB_Transfers; ?> vnd</span>
+                  <span class="info-box-number"> <?php echo number_format($iB_Transfers ?? 0); ?> vnd</span>
                 </div>
               </div>
             </div>
@@ -188,7 +188,7 @@ $stmt->close();
                 <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-money-bill-alt"></i></span>
                 <div class="info-box-content">
                   <span class="info-box-text">Wallet Balance</span>
-                  <span class="info-box-number"> <?php echo $TotalBalInAccount; ?> vnd</span>
+                  <span class="info-box-number"> <?php echo number_format($TotalBalInAccount); ?> vnd</span>
                 </div>
               </div>
             </div>
@@ -236,7 +236,7 @@ $stmt->close();
                   <div class="row">
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header"> <?php echo $iB_deposits; ?> vnd</h5>
+                        <h5 class="description-header"> <?php echo number_format($iB_deposits); ?> vnd</h5>
                         <span class="description-text">TOTAL DEPOSITS</span>
                       </div>
                       <!-- /.description-block -->
@@ -244,7 +244,7 @@ $stmt->close();
                     <!-- /.col -->
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header"> <?php echo $iB_withdrawal; ?> vnd</h5>
+                        <h5 class="description-header"> <?php echo number_format($iB_withdrawal); ?> vnd</h5>
                         <span class="description-text">TOTAL WITHDRAWALS</span>
                       </div>
                       <!-- /.description-block -->
@@ -252,7 +252,7 @@ $stmt->close();
                     <!-- /.col -->
                     <div class="col-sm-3 col-6">
                       <div class="description-block border-right">
-                        <h5 class="description-header"> <?php echo $iB_Transfers; ?> vnd</h5>
+                        <h5 class="description-header"> <?php echo number_format($iB_Transfers); ?> vnd</h5>
                         <span class="description-text">TOTAL TRANSFERS</span>
                       </div>
                       <!-- /.description-block -->
@@ -260,7 +260,7 @@ $stmt->close();
                     <!-- /.col -->
                     <div class="col-sm-3 col-6">
                       <div class="description-block">
-                        <h5 class="description-header"> <?php echo $new_amt; ?> vnd</h5>
+                        <h5 class="description-header"> <?php echo number_format($new_amt); ?> vnd</h5>
                         <span class="description-text">TOTAL MONEY IN  Account</span>
                       </div>
                       <!-- /.description-block -->
@@ -336,7 +336,7 @@ $stmt->close();
                             <td><?php echo $row->tr_code; ?></a></td>
                             <td><?php echo $row->account_number; ?></td>
                             <td><?php echo $alertClass; ?></td>
-                            <td><?php echo $row->transaction_amt; ?> vnd</td>
+                            <td><?php echo number_format($row->transaction_amt); ?> vnd</td>
                             <td><?php echo $row->client_name; ?></td>
                             <td><?php echo date("d-M-Y h:m:s ", strtotime($transTstamp)); ?></td>
                           </tr>
