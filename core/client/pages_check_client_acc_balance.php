@@ -162,10 +162,10 @@ $client_id = $_SESSION['client_id'];
                                                 <tbody>
 
                                                     <tr>
-                                                        <td><?php echo $deposit; ?> vnd</td>
-                                                        <td><?php echo $withdrawal; ?> vnd</td>
-                                                        <td><?php echo $Transfer; ?> vnd</td>
-                                                        <td><?php echo $money_in; ?> vnd</td>
+                                                        <td><?php echo number_format($deposit ?? 0); ?> vnd</td>
+                                                        <td><?php echo number_format($withdrawal ?? 0); ?> vnd</td>
+                                                        <td><?php echo number_format($Transfer ?? 0); ?> vnd</td>
+                                                        <td><?php echo number_format($money_in ?? 0); ?> vnd</td>
                                                     </tr>
 
                                                 </tbody>
@@ -192,23 +192,23 @@ $client_id = $_SESSION['client_id'];
                                                 <table class="table">
                                                     <tr>
                                                         <th style="width:50%">Funds In:</th>
-                                                        <td><?php echo $deposit; ?> vnd</td>
+                                                        <td><?php echo number_format($deposit ?? 0); ?> vnd</td>
                                                     </tr>
                                                     <tr>
                                                         <th>Funds Out</th>
-                                                        <td><?php echo $money_out; ?> vnd</td>
+                                                        <td><?php echo number_format($money_out ?? 0); ?> vnd</td>
                                                     </tr>
                                                     <tr>
                                                         <th>Sub Total:</th>
-                                                        <td><?php echo $money_in; ?> vnd</td>
+                                                        <td><?php echo number_format($money_in ?? 0); ?> vnd</td>
                                                     </tr>
                                                     <tr>
                                                         <th>Banking Intrest:</th>
-                                                        <td><?php echo $rate_amt; ?> vnd</td>
+                                                        <td><?php echo number_format($rate_amt ?? 0); ?> vnd</td>
                                                     </tr>
                                                     <tr>
                                                         <th>Total Balance:</th>
-                                                        <td><?php echo $totalMoney; ?> vnd</td>
+                                                        <td><?php echo number_format($totalMoney ?? 0); ?> vnd</td>
                                                     </tr>
                                                 </table>
                                             </div>

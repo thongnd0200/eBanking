@@ -23,7 +23,7 @@ if (isset($_POST['deposit'])) {
     //$acc_new_amt = $_POST['acc_new_amt'];
 
     //Notication
-    $notification_details = "$client_name Has Deposited $transaction_amt vnd To Bank Account $account_number";
+    $notification_details = "$client_name Has Deposited " . number_format($transaction_amt) . " vnd To Bank Account $account_number";
 
 
     //Insert Captured information to a database table

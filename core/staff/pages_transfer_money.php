@@ -27,7 +27,7 @@ if (isset($_POST['deposit'])) {
     $receiving_acc_holder = $_POST['receiving_acc_holder'];
 
     //Notication
-    $notification_details = "$client_name Has Transfered $transaction_amt vnd From Bank Account $account_number To Bank Account $receiving_acc_no";
+    $notification_details = "$client_name Has Transfered " . number_format($transaction_amt) . " vnd From Bank Account $account_number To Bank Account $receiving_acc_no";
 
 
     /*
@@ -46,7 +46,7 @@ if (isset($_POST['deposit'])) {
 
 
     if ($transaction_amt > $amt) {
-        $transaction_error  =  "You Do Not Have Sufficient Funds In Your Account For Transfer Your Current Account Balance Is $amt vnd";
+        $transaction_error  =  "You Do Not Have Sufficient Funds In Your Account For Transfer Your Current Account Balance Is " . number_format($amt) . " vnd";
     } else {
 
 

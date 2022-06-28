@@ -8,7 +8,7 @@ iBanking an Information System, which implements most of all basic features and 
 2. Extract it into <b>xampp/htdocs/</b> or <b>opt/lampp/htdocs/</b> or <b>var/www/html/</b>
 3. Create a database named <b>iBanking</b>
 4. Import attached .SQL File directly - Find it in this directory <b> database/iBanking.sql </b>
-5. Access it directly on web browser by typing <i>http://Your Server Name Or IP Address/iBank/</i>
+5. Access it directly on web browser by typing <i>http://YourServerName-Or-IPAddress/iBanking/</i>
 
 ## Login Credentials
 ```
