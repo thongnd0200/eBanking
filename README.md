@@ -23,7 +23,7 @@ iBanking an Information System, which implements most of all basic features and 
 3. Client
     Create Client Account
 ```
-<p align="center"><img src="https://raw.githubusercontent.com/MartMbithi/iBanking/master/2.png"></p>
+<p align="center"><img src="https://github.com/thongnd0200/iBanking/blob/5b34f1b55c890cdc5193286c23c4b481e9037de8/transactions.png"></p>
 <p align="center"><img src="https://raw.githubusercontent.com/MartMbithi/iBanking/master/3.png"></p>
 
 
