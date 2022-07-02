@@ -100,7 +100,7 @@ $client_id = $_SESSION['client_id'];
                                                     <td><?php echo $row->client_name; ?></td>
                                                     <td><?php echo date("d-M-Y", strtotime($dateOpened)); ?></td>
                                                     <td>
-                                                        <a class="badge badge-success" href="pages_check_client_acc_balance.php?account_id=<?php echo $row->account_id; ?>&acccount_number=<?php echo $row->account_number; ?>">
+                                                        <a class="badge badge-success" href="pages_check_client_acc_balance.php?account_id=<?php echo $row->account_id; ?>&account_number=<?php echo $row->account_number; ?>">
                                                             <i class="fas fa-eye"></i>
                                                             <i class="fas fa-money-bill-alt"></i>
                                                             Check Balance

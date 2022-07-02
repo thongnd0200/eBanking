@@ -92,7 +92,7 @@ $stmt->bind_result($acc_amt);
 $stmt->fetch();
 $stmt->close();
 //Get the remaining money in the accounts
-$TotalBalInAccount = ($iB_deposits)  - (($iB_withdrawal) + ($iB_Transfers));
+$TotalBalInAccount = ($iB_deposits)  - ($iB_withdrawal);
 
 
 //ibank money in the wallet

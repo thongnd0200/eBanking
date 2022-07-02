@@ -192,8 +192,10 @@ if (isset($_POST['deposit'])) {
                                                         <option>Select Receiving Account</option>
                                                         <?php
                                                         //fetch all iB_Accs
-                                                        $ret = "SELECT * FROM  iB_bankAccounts ";
+                                                        $account_id = $_GET['account_id'];
+                                                        $ret = "SELECT * FROM  iB_bankAccounts WHERE account_id != ?";
                                                         $stmt = $mysqli->prepare($ret);
+                                                        $stmt->bind_param('i', $account_id);
                                                         $stmt->execute(); //ok
                                                         $res = $stmt->get_result();
                                                         $cnt = 1;

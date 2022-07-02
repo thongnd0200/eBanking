@@ -62,7 +62,15 @@ $staff_id = $_SESSION['staff_id'];
         $stmt->fetch();
         $stmt->close();
 
-
+        //get total amount received
+        $account_number = $_GET['account_number'];
+        $result = "SELECT SUM(transaction_amt) FROM iB_Transactions WHERE  receiving_acc_no = ? AND  tr_type = 'Transfer' ";
+        $stmt = $mysqli->prepare($result);
+        $stmt->bind_param('i', $account_number);
+        $stmt->execute();
+        $stmt->bind_result($receive);
+        $stmt->fetch();
+        $stmt->close();
 
         $account_id = $_GET['account_id'];
         $ret = "SELECT * FROM  iB_bankAccounts WHERE account_id =? ";
@@ -72,12 +80,14 @@ $staff_id = $_SESSION['staff_id'];
         $res = $stmt->get_result();
         $cnt = 1;
         while ($row = $res->fetch_object()) {
+            //compute funds in 
+            $funds_in = $deposit + $receive;
             //compute rate
             $banking_rate = ($row->acc_rates) / 100;
             //compute Money out
             $money_out = $withdrawal + $Transfer;
             //compute the balance
-            $money_in = $deposit - $money_out;
+            $money_in = $funds_in - $money_out;
             //get the rate
             $rate_amt = $banking_rate * $money_in;
             //compute the intrest + balance 
@@ -192,7 +202,7 @@ $staff_id = $_SESSION['staff_id'];
                                                 <table class="table">
                                                     <tr>
                                                         <th style="width:50%">Funds In:</th>
-                                                        <td><?php echo number_format($deposit ?? 0); ?> vnd</td>
+                                                        <td><?php echo number_format($funds_in ?? 0); ?> vnd</td>
                                                     </tr>
                                                     <tr>
                                                         <th>Funds Out</th>

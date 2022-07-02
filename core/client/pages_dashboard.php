@@ -75,6 +75,16 @@ $stmt->bind_result($iB_Transfers);
 $stmt->fetch();
 $stmt->close();
 
+//return total number of iBank Receives
+$client_id = $_SESSION['client_id'];
+$result = "SELECT SUM(transaction_amt) FROM iB_Transactions WHERE receiving_acc_no IN (SELECT account_number FROM iB_bankAccounts WHERE client_id = ?) AND  tr_type = 'Transfer' ";
+$stmt = $mysqli->prepare($result);
+$stmt->bind_param('i', $client_id);
+$stmt->execute();
+$stmt->bind_result($iB_Receives);
+$stmt->fetch();
+$stmt->close();
+
 //return total number of  iBank initial cash->balances
 $client_id = $_SESSION['client_id'];
 $result = "SELECT SUM(transaction_amt) FROM iB_Transactions  WHERE client_id =?";
@@ -85,7 +95,7 @@ $stmt->bind_result($acc_amt);
 $stmt->fetch();
 $stmt->close();
 //Get the remaining money in the accounts
-$TotalBalInAccount = ($iB_deposits)  - (($iB_withdrawal) + ($iB_Transfers));
+$TotalBalInAccount = ($iB_deposits + $iB_Receives)  - (($iB_withdrawal) + ($iB_Transfers));
 
 
 //ibank money in the wallet
@@ -155,7 +165,7 @@ $stmt->close();
             <!----./ iBank Deposits-->
 
             <!--iBank Withdrwals-->
-            <div class="col-12 col-sm-6 col-md-3">
+            <div class="col-12 col-sm-6 col-md-2">
               <div class="info-box mb-3">
                 <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-download"></i></span>
 
@@ -171,7 +181,7 @@ $stmt->close();
             <div class="clearfix hidden-md-up"></div>
 
             <!--Transfers-->
-            <div class="col-12 col-sm-6 col-md-3">
+            <div class="col-12 col-sm-6 col-md-2">
               <div class="info-box mb-3">
                 <span class="info-box-icon bg-success elevation-1"><i class="fas fa-random"></i></span>
                 <div class="info-box-content">
@@ -181,6 +191,18 @@ $stmt->close();
               </div>
             </div>
             <!-- /.Transfers-->
+
+            <!--Receives-->
+             <div class="col-12 col-sm-6 col-md-2">
+              <div class="info-box mb-3">
+                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-random"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Receives</span>
+                  <span class="info-box-number"> <?php echo number_format($iB_Receives ?? 0); ?> vnd</span>
+                </div>
+              </div>
+            </div>
+            <!-- /.Receives-->
 
             <!--Balances-->
             <div class="col-12 col-sm-6 col-md-3">
@@ -260,7 +282,7 @@ $stmt->close();
                     <!-- /.col -->
                     <div class="col-sm-3 col-6">
                       <div class="description-block">
-                        <h5 class="description-header"> <?php echo number_format($new_amt); ?> vnd</h5>
+                        <h5 class="description-header"> <?php echo number_format($TotalBalInAccount); ?> vnd</h5>
                         <span class="description-text">TOTAL MONEY IN  Account</span>
                       </div>
                       <!-- /.description-block -->
@@ -312,9 +334,9 @@ $stmt->close();
                         <?php
                         //Get latest transactions ;
                         $client_id = $_SESSION['client_id'];
-                        $ret = "SELECT * FROM iB_Transactions WHERE  client_id = ?  ORDER BY iB_Transactions. created_at DESC ";
+                        $ret = "SELECT * FROM iB_Transactions WHERE client_id = ? OR receiving_acc_no IN (SELECT account_number FROM iB_bankAccounts WHERE client_id = ?) ORDER BY iB_Transactions. created_at DESC ";
                         $stmt = $mysqli->prepare($ret);
-                        $stmt->bind_param('i', $client_id);
+                        $stmt->bind_param('ii', $client_id, $client_id);
                         $stmt->execute(); //ok
                         $res = $stmt->get_result();
                         $cnt = 1;

@@ -38,9 +38,61 @@ if (isset($_POST['withdrawal'])) {
     $stmt->fetch();
     $stmt->close();
 
+    //get the total amount deposited
+    $result = "SELECT SUM(transaction_amt) FROM iB_Transactions WHERE  account_id = ? AND  tr_type = 'Deposit' ";
+    $stmt = $mysqli->prepare($result);
+    $stmt->bind_param('i', $account_id);
+    $stmt->execute();
+    $stmt->bind_result($deposit);
+    $stmt->fetch();
+    $stmt->close();
 
-    if ($transaction_amt > $amt) {
-        $err = "You Do Not Have Sufficient Funds In Your Account.Your Existing Amount is " . number_format($amt) . " vnd";
+    //get total amount withdrawn
+    $result = "SELECT SUM(transaction_amt) FROM iB_Transactions WHERE  account_id = ? AND  tr_type = 'Withdrawal' ";
+    $stmt = $mysqli->prepare($result);
+    $stmt->bind_param('i', $account_id);
+    $stmt->execute();
+    $stmt->bind_result($withdrawal);
+    $stmt->fetch();
+    $stmt->close();
+
+    //get total amount transfered
+    $result = "SELECT SUM(transaction_amt) FROM iB_Transactions WHERE  account_id = ? AND  tr_type = 'Transfer' ";
+    $stmt = $mysqli->prepare($result);
+    $stmt->bind_param('i', $account_id);
+    $stmt->execute();
+    $stmt->bind_result($Transfer);
+    $stmt->fetch();
+    $stmt->close();
+
+    //get total amount received
+    $account_number = $_GET['account_number'];
+    $result = "SELECT SUM(transaction_amt) FROM iB_Transactions WHERE  receiving_acc_no = ? AND  tr_type = 'Transfer' ";
+    $stmt = $mysqli->prepare($result);
+    $stmt->bind_param('i', $account_number);
+    $stmt->execute();
+    $stmt->bind_result($receive);
+    $stmt->fetch();
+    $stmt->close();
+
+    $ret = "SELECT * FROM  iB_bankAccounts WHERE account_id =? ";
+    $stmt = $mysqli->prepare($ret);
+    $stmt->bind_param('i', $account_id);
+    $stmt->execute(); //ok
+    $res = $stmt->get_result();
+    $cnt = 1;
+    
+    //compute funds in 
+    $funds_in = $deposit + $receive;
+    //compute Money out
+    $money_out = $withdrawal + $Transfer;
+    //compute the balance
+    $money_in = $funds_in - $money_out;
+    //compute the intrest + balance 
+    $totalMoney = $rate_amt + $money_in;    
+
+    if ($transaction_amt > $money_in) {
+        $err = "You Do Not Have Sufficient Funds In Your Account.Your Existing Amount is " . number_format($money_in) . " vnd";
     } else {
 
 
@@ -111,6 +163,59 @@ if (isset($_POST['withdrawal'])) {
         $stmt->execute(); //ok
         $res = $stmt->get_result();
         $cnt = 1;
+
+        //get the total amount deposited
+        $result = "SELECT SUM(transaction_amt) FROM iB_Transactions WHERE  account_id = ? AND  tr_type = 'Deposit' ";
+        $stmt = $mysqli->prepare($result);
+        $stmt->bind_param('i', $account_id);
+        $stmt->execute();
+        $stmt->bind_result($deposit);
+        $stmt->fetch();
+        $stmt->close();
+
+        //get total amount withdrawn
+        $result = "SELECT SUM(transaction_amt) FROM iB_Transactions WHERE  account_id = ? AND  tr_type = 'Withdrawal' ";
+        $stmt = $mysqli->prepare($result);
+        $stmt->bind_param('i', $account_id);
+        $stmt->execute();
+        $stmt->bind_result($withdrawal);
+        $stmt->fetch();
+        $stmt->close();
+
+        //get total amount transfered
+        $result = "SELECT SUM(transaction_amt) FROM iB_Transactions WHERE  account_id = ? AND  tr_type = 'Transfer' ";
+        $stmt = $mysqli->prepare($result);
+        $stmt->bind_param('i', $account_id);
+        $stmt->execute();
+        $stmt->bind_result($Transfer);
+        $stmt->fetch();
+        $stmt->close();
+
+        //get total amount received
+        $account_number = $_GET['account_number'];
+        $result = "SELECT SUM(transaction_amt) FROM iB_Transactions WHERE  receiving_acc_no = ? AND  tr_type = 'Transfer' ";
+        $stmt = $mysqli->prepare($result);
+        $stmt->bind_param('i', $account_number);
+        $stmt->execute();
+        $stmt->bind_result($receive);
+        $stmt->fetch();
+        $stmt->close();
+
+        $ret = "SELECT * FROM  iB_bankAccounts WHERE account_id =? ";
+        $stmt = $mysqli->prepare($ret);
+        $stmt->bind_param('i', $account_id);
+        $stmt->execute(); //ok
+        $res = $stmt->get_result();
+        $cnt = 1;
+        
+        //compute funds in 
+        $funds_in = $deposit + $receive;
+        //compute Money out
+        $money_out = $withdrawal + $Transfer;
+        //compute the balance
+        $money_in = $funds_in - $money_out;
+        //compute the intrest + balance 
+        $totalMoney = $rate_amt + $money_in; 
         while ($row = $res->fetch_object()) {
 
 
@@ -182,7 +287,7 @@ if (isset($_POST['withdrawal'])) {
                                             </div>
 
                                             <div class="row">
-                                                <div class=" col-md-6 form-group">
+                                                <div class=" col-md-4 form-group">
                                                     <label for="exampleInputEmail1">Transaction Code</label>
                                                     <?php
                                                     //PHP function to generate random account number
@@ -191,8 +296,11 @@ if (isset($_POST['withdrawal'])) {
                                                     ?>
                                                     <input type="text" name="tr_code" readonly value="<?php echo $_transcode; ?>" required class="form-control" id="exampleInputEmail1">
                                                 </div>
-
-                                                <div class=" col-md-6 form-group">
+                                                <div class=" col-md-4 form-group">
+                                                    <label for="exampleInputPassword1">Current Account Balance(vnd)</label>
+                                                    <input type="text" readonly value="<?php echo number_format($money_in); ?>" required class="form-control" id="exampleInputEmail1">
+                                                </div>
+                                                <div class=" col-md-4 form-group">
                                                     <label for="exampleInputPassword1">Amount Withdraw </label>
                                                     <input type="text" name="transaction_amt" required class="form-control" id="exampleInputEmail1">
                                                 </div>
