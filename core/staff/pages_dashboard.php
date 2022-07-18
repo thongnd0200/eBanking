@@ -475,13 +475,19 @@ $stmt->close();
           dataPoints: [{
               y: <?php
                   //return total number of accounts opened under savings acc type
+                  $result = "SELECT count(*) FROM iB_bankAccounts";
+                  $stmt = $mysqli->prepare($result);
+                  $stmt->execute();
+                  $stmt->bind_result($total);
+                  $stmt->fetch();
+                  $stmt->close();
                   $result = "SELECT count(*) FROM iB_bankAccounts WHERE  acc_type ='Savings'";
                   $stmt = $mysqli->prepare($result);
                   $stmt->execute();
                   $stmt->bind_result($savings);
                   $stmt->fetch();
                   $stmt->close();
-                  echo $savings;
+                  echo number_format($savings/$total*100);
                   ?>,
               name: "Savings Acc",
               exploded: true
@@ -490,13 +496,19 @@ $stmt->close();
             {
               y: <?php
                   //return total number of accounts opened under  Retirement  acc type
+                  $result = "SELECT count(*) FROM iB_bankAccounts";
+                  $stmt = $mysqli->prepare($result);
+                  $stmt->execute();
+                  $stmt->bind_result($total);
+                  $stmt->fetch();
+                  $stmt->close();
                   $result = "SELECT count(*) FROM iB_bankAccounts WHERE  acc_type =' Retirement'  ";
                   $stmt = $mysqli->prepare($result);
                   $stmt->execute();
                   $stmt->bind_result($Retirement);
                   $stmt->fetch();
                   $stmt->close();
-                  echo $Retirement;
+                  echo number_format($Retirement/$total*100);
                   ?>,
               name: " Retirement Acc",
               exploded: true
@@ -504,29 +516,20 @@ $stmt->close();
 
             {
               y: <?php
-                  //return total number of accounts opened under  Recurring deposit  acc type
-                  $result = "SELECT count(*) FROM iB_bankAccounts WHERE  acc_type ='Recurring deposit' ";
+                  //return total number of accounts opened under  Fixed Deposit Account deposit  acc type
+                  $result = "SELECT count(*) FROM iB_bankAccounts";
                   $stmt = $mysqli->prepare($result);
                   $stmt->execute();
-                  $stmt->bind_result($Recurring);
+                  $stmt->bind_result($total);
                   $stmt->fetch();
                   $stmt->close();
-                  echo $Recurring;
-                  ?>,
-              name: "Recurring deposit Acc ",
-              exploded: true
-            },
-
-            {
-              y: <?php
-                  //return total number of accounts opened under  Fixed Deposit Account deposit  acc type
                   $result = "SELECT count(*) FROM iB_bankAccounts WHERE  acc_type ='Fixed Deposit Account' ";
                   $stmt = $mysqli->prepare($result);
                   $stmt->execute();
                   $stmt->bind_result($Fixed);
                   $stmt->fetch();
                   $stmt->close();
-                  echo $Fixed;
+                  echo number_format($Fixed/$total*100);
                   ?>,
               name: "Fixed Deposit Acc",
               exploded: true
@@ -535,13 +538,19 @@ $stmt->close();
             {
               y: <?php
                   //return total number of accounts opened under  Current account deposit  acc type
+                  $result = "SELECT count(*) FROM iB_bankAccounts";
+                  $stmt = $mysqli->prepare($result);
+                  $stmt->execute();
+                  $stmt->bind_result($total);
+                  $stmt->fetch();
+                  $stmt->close();
                   $result = "SELECT count(*) FROM iB_bankAccounts WHERE  acc_type ='Current account' ";
                   $stmt = $mysqli->prepare($result);
                   $stmt->execute();
                   $stmt->bind_result($Current);
                   $stmt->fetch();
                   $stmt->close();
-                  echo $Current;
+                  echo number_format($Current/$total*100);
                   ?>,
               name: "Current Acc",
               exploded: true
@@ -568,13 +577,19 @@ $stmt->close();
           dataPoints: [{
               y: <?php
                   //return total number of transactions under  Withdrawals
+                  $result = "SELECT count(*) FROM iB_Transactions";
+                  $stmt = $mysqli->prepare($result);
+                  $stmt->execute();
+                  $stmt->bind_result($total);
+                  $stmt->fetch();
+                  $stmt->close();
                   $result = "SELECT count(*) FROM iB_Transactions WHERE  tr_type ='Withdrawal' ";
                   $stmt = $mysqli->prepare($result);
                   $stmt->execute();
                   $stmt->bind_result($Withdrawals);
                   $stmt->fetch();
                   $stmt->close();
-                  echo $Withdrawals;
+                  echo number_format($Withdrawals/$total*100);
                   ?>,
               name: "Withdrawals",
               exploded: true
@@ -583,13 +598,19 @@ $stmt->close();
             {
               y: <?php
                   //return total number of transactions under  Deposits
+                  $result = "SELECT count(*) FROM iB_Transactions";
+                  $stmt = $mysqli->prepare($result);
+                  $stmt->execute();
+                  $stmt->bind_result($total);
+                  $stmt->fetch();
+                  $stmt->close();
                   $result = "SELECT count(*) FROM iB_Transactions WHERE  tr_type ='Deposit' ";
                   $stmt = $mysqli->prepare($result);
                   $stmt->execute();
                   $stmt->bind_result($Deposits);
                   $stmt->fetch();
                   $stmt->close();
-                  echo $Deposits;
+                  echo number_format($Deposits/$total*100);
                   ?>,
               name: "Deposits",
               exploded: true
@@ -598,13 +619,19 @@ $stmt->close();
             {
               y: <?php
                   //return total number of transactions under  Deposits
+                  $result = "SELECT count(*) FROM iB_Transactions";
+                  $stmt = $mysqli->prepare($result);
+                  $stmt->execute();
+                  $stmt->bind_result($total);
+                  $stmt->fetch();
+                  $stmt->close();
                   $result = "SELECT count(*) FROM iB_Transactions WHERE  tr_type ='Transfer' ";
                   $stmt = $mysqli->prepare($result);
                   $stmt->execute();
                   $stmt->bind_result($Transfers);
                   $stmt->fetch();
                   $stmt->close();
-                  echo $Transfers;
+                  echo number_format($Transfers/$total*100);
                   ?>,
               name: "Transfers",
               exploded: true

@@ -450,6 +450,13 @@ $stmt->close();
               y: <?php
                   //return total number of accounts opened under savings acc type
                   $client_id = $_SESSION['client_id'];
+                  $result = "SELECT count(*) FROM iB_bankAccounts WHERE client_id =? ";
+                  $stmt = $mysqli->prepare($result);
+                  $stmt->bind_param('i', $client_id);
+                  $stmt->execute();
+                  $stmt->bind_result($total);
+                  $stmt->fetch();
+                  $stmt->close();
                   $result = "SELECT count(*) FROM iB_bankAccounts WHERE  acc_type ='Savings' AND client_id =? ";
                   $stmt = $mysqli->prepare($result);
                   $stmt->bind_param('i', $client_id);
@@ -457,7 +464,7 @@ $stmt->close();
                   $stmt->bind_result($savings);
                   $stmt->fetch();
                   $stmt->close();
-                  echo $savings;
+                  echo number_format($savings/$total*100) ;
                   ?>,
               name: "Savings Acc",
               exploded: true
@@ -467,6 +474,13 @@ $stmt->close();
               y: <?php
                   //return total number of accounts opened under  Retirement  acc type
                   $client_id  = $_SESSION['client_id'];
+                  $result = "SELECT count(*) FROM iB_bankAccounts WHERE client_id =? ";
+                  $stmt = $mysqli->prepare($result);
+                  $stmt->bind_param('i', $client_id);
+                  $stmt->execute();
+                  $stmt->bind_result($total);
+                  $stmt->fetch();
+                  $stmt->close();
                   $result = "SELECT count(*) FROM iB_bankAccounts WHERE  acc_type =' Retirement' AND client_id =? ";
                   $stmt = $mysqli->prepare($result);
                   $stmt->bind_param('i', $client_id);
@@ -474,7 +488,7 @@ $stmt->close();
                   $stmt->bind_result($Retirement);
                   $stmt->fetch();
                   $stmt->close();
-                  echo $Retirement;
+                  echo number_format($Retirement/$total*100);
                   ?>,
               name: " Retirement Acc",
               exploded: true
@@ -482,25 +496,15 @@ $stmt->close();
 
             {
               y: <?php
-                  //return total number of accounts opened under  Recurring deposit  acc type
+                  //return total number of accounts opened under  Fixed Deposit Account deposit  acc type
                   $client_id  = $_SESSION['client_id'];
-                  $result = "SELECT count(*) FROM iB_bankAccounts WHERE  acc_type ='Recurring deposit' AND client_id =? ";
+                  $result = "SELECT count(*) FROM iB_bankAccounts WHERE client_id =? ";
                   $stmt = $mysqli->prepare($result);
                   $stmt->bind_param('i', $client_id);
                   $stmt->execute();
-                  $stmt->bind_result($Recurring);
+                  $stmt->bind_result($total);
                   $stmt->fetch();
                   $stmt->close();
-                  echo $Recurring;
-                  ?>,
-              name: "Recurring deposit Acc ",
-              exploded: true
-            },
-
-            {
-              y: <?php
-                  //return total number of accounts opened under  Fixed Deposit Account deposit  acc type
-                  $client_id  = $_SESSION['client_id'];
                   $result = "SELECT count(*) FROM iB_bankAccounts WHERE  acc_type ='Fixed Deposit Account' AND client_id = ? ";
                   $stmt = $mysqli->prepare($result);
                   $stmt->bind_param('i', $client_id);
@@ -508,7 +512,7 @@ $stmt->close();
                   $stmt->bind_result($Fixed);
                   $stmt->fetch();
                   $stmt->close();
-                  echo $Fixed;
+                  echo number_format($Fixed/$total*100);
                   ?>,
               name: "Fixed Deposit Acc",
               exploded: true
@@ -519,6 +523,13 @@ $stmt->close();
 
                   //return total number of accounts opened under  Current account deposit  acc type
                   $client_id  = $_SESSION['client_id'];
+                  $result = "SELECT count(*) FROM iB_bankAccounts WHERE client_id =? ";
+                  $stmt = $mysqli->prepare($result);
+                  $stmt->bind_param('i', $client_id);
+                  $stmt->execute();
+                  $stmt->bind_result($total);
+                  $stmt->fetch();
+                  $stmt->close();
                   $result = "SELECT count(*) FROM iB_bankAccounts WHERE  acc_type ='Current account' AND client_id =? ";
                   $stmt = $mysqli->prepare($result);
                   $stmt->bind_param('i', $client_id);
@@ -526,7 +537,7 @@ $stmt->close();
                   $stmt->bind_result($Current);
                   $stmt->fetch();
                   $stmt->close();
-                  echo $Current;
+                  echo number_format($Current/$total*100);
                   ?>,
               name: "Current Acc",
               exploded: true
@@ -554,6 +565,13 @@ $stmt->close();
               y: <?php
                   //return total number of transactions under  Withdrawals
                   $client_id  = $_SESSION['client_id'];
+                  $result = "SELECT count(*) FROM iB_Transactions WHERE client_id =? ";
+                  $stmt = $mysqli->prepare($result);
+                  $stmt->bind_param('i', $client_id);
+                  $stmt->execute();
+                  $stmt->bind_result($total);
+                  $stmt->fetch();
+                  $stmt->close();
                   $result = "SELECT count(*) FROM iB_Transactions WHERE  tr_type ='Withdrawal' AND client_id =? ";
                   $stmt = $mysqli->prepare($result);
                   $stmt->bind_param('i', $client_id);
@@ -561,7 +579,7 @@ $stmt->close();
                   $stmt->bind_result($Withdrawals);
                   $stmt->fetch();
                   $stmt->close();
-                  echo $Withdrawals;
+                  echo number_format($Withdrawals/$total*100);
                   ?>,
               name: "Withdrawals",
               exploded: true
@@ -571,6 +589,13 @@ $stmt->close();
               y: <?php
                   //return total number of transactions under  Deposits
                   $client_id  = $_SESSION['client_id'];
+                  $result = "SELECT count(*) FROM iB_Transactions WHERE client_id =? ";
+                  $stmt = $mysqli->prepare($result);
+                  $stmt->bind_param('i', $client_id);
+                  $stmt->execute();
+                  $stmt->bind_result($total);
+                  $stmt->fetch();
+                  $stmt->close();
                   $result = "SELECT count(*) FROM iB_Transactions WHERE  tr_type ='Deposit' AND client_id =? ";
                   $stmt = $mysqli->prepare($result);
                   $stmt->bind_param('i', $client_id);
@@ -578,7 +603,7 @@ $stmt->close();
                   $stmt->bind_result($Deposits);
                   $stmt->fetch();
                   $stmt->close();
-                  echo $Deposits;
+                  echo number_format($Deposits/$total*100);
                   ?>,
               name: "Deposits",
               exploded: true
@@ -588,6 +613,13 @@ $stmt->close();
               y: <?php
                   //return total number of transactions under  Deposits
                   $client_id  = $_SESSION['client_id'];
+                  $result = "SELECT count(*) FROM iB_Transactions WHERE client_id =? ";
+                  $stmt = $mysqli->prepare($result);
+                  $stmt->bind_param('i', $client_id);
+                  $stmt->execute();
+                  $stmt->bind_result($total);
+                  $stmt->fetch();
+                  $stmt->close();
                   $result = "SELECT count(*) FROM iB_Transactions WHERE  tr_type ='Transfer' AND client_id =? ";
                   $stmt = $mysqli->prepare($result);
                   $stmt->bind_param('i', $client_id);
@@ -595,7 +627,7 @@ $stmt->close();
                   $stmt->bind_result($Transfers);
                   $stmt->fetch();
                   $stmt->close();
-                  echo $Transfers;
+                  echo number_format($Transfers/$total*100);
                   ?>,
               name: "Transfers",
               exploded: true
