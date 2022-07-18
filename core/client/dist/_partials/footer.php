@@ -7,6 +7,7 @@ $res = $stmt->get_result();
 while ($sys = $res->fetch_object()) {
 ?>
   <footer class="main-footer">
+    <strong>by Thong Nguyen Dang</strong>
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 2.0.0
     </div>
