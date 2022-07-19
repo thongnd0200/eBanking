@@ -91,7 +91,7 @@ $admin_id = $_SESSION['admin_id'];
                         <td><?php echo $row->account_number; ?></td>
                         <td><?php echo number_format($row->transaction_amt); ?> vnd</td>
                         <td><?php echo $row->client_name; ?></td>
-                        <td><?php echo date("d-M-Y h:m:s ", strtotime($transTstamp)); ?></td>
+                        <td><?php echo date("d-M-Y h:i:s ", strtotime($transTstamp)); ?></td>
                       </tr>
                     <?php $cnt = $cnt + 1;
                     } ?>

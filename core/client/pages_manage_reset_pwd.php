@@ -94,7 +94,7 @@ if (isset($_GET['ClearReset'])) {
                         <td><?php echo $row->email; ?></td>
                         <td><?php echo $row->token; ?></td>
                         <td><?php echo $row->dummy_pwd; ?></td>
-                        <td><?php echo date("d-M-Y h:m:s ", strtotime($created_at)); ?></td>
+                        <td><?php echo date("d-M-Y h:i:s ", strtotime($created_at)); ?></td>
                         <td>
                           <?php
                           //perform lil hocus pocus here 
